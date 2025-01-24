@@ -10,7 +10,7 @@ on:
 
 jobs:
   selenium-tests:
-    runs-on: ubuntu-latest  # تحديد نظام التشغيل
+    runs-on: windows  # تحديد نظام التشغيل
     steps:
     - name: Checkout code
       uses: actions/checkout@v3  # تحميل الكود من المستودع
