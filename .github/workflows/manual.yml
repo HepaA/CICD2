@@ -1,0 +1,32 @@
+name: Run Selenium Tests
+
+on:
+  push:
+    branches:
+      - main  # تشغيل الاختبارات عند دفع كود جديد للفرع الرئيسي
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  selenium-tests:
+    runs-on: ubuntu-latest  # تحديد نظام التشغيل
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3  # تحميل الكود من المستودع
+
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+        java-version: '23'  # تحديد إصدار Java
+
+    - name: Set up Maven
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y maven  # تثبيت Maven
+
+    - name: Install dependencies
+      run: mvn install  # تثبيت dependencies من ملف pom.xml
+
+    - name: Run Selenium Tests
+      run: mvn test  # تشغيل اختبارات الأتمتة
