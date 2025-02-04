@@ -25,14 +25,14 @@ jobs:
           cache: 'maven'
 
       - name: Check Project Structure
-        run: ls -R  # عرض هيكل الملفات للتأكد من وجود pom.xml
+        run: ls -R  # يعرض كل الملفات الموجودة
 
       - name: Install Dependencies
         run: |
-          cd C:\Users\HepaS\Downloads\CICD2-main\CICD2-main\smallProject
+          cd $(find . -name "pom.xml" -exec dirname {} \;)  # الذهاب إلى المجلد اللي فيه pom.xml
           mvn clean install -DskipTests
 
       - name: Run Selenium Tests
         run: |
-          cd C:\Users\HepaS\Downloads\CICD2-main\CICD2-main\smallProject
+          cd $(find . -name "pom.xml" -exec dirname {} \;)
           mvn test
