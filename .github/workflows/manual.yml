@@ -8,6 +8,15 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      environment:
+        description: "Choose test environment"
+        required: true
+        default: "test"
+        type: choice
+        options:
+          - test
+          - production
 
 jobs:
   selenium-tests:
@@ -24,12 +33,15 @@ jobs:
           java-version: '23'
           cache: 'maven'
 
+      - name: Set Environment Variable
+        run: echo "ENV=${{ github.event.inputs.environment }}" >> $GITHUB_ENV
+
       - name: Check Project Structure
-        run: ls -R  # يعرض كل الملفات الموجودة
+        run: ls -R
 
       - name: Install Dependencies
         run: |
-          cd $(find . -name "pom.xml" -exec dirname {} \;)  # الذهاب إلى المجلد اللي فيه pom.xml
+          cd $(find . -name "pom.xml" -exec dirname {} \;)
           mvn clean install -DskipTests
 
       - name: Run Selenium Tests
