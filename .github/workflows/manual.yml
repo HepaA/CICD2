@@ -29,8 +29,10 @@ jobs:
 
       - name: Install Dependencies
         run: |
+          cd C:\Users\HepaS\Downloads\CICD2-main\CICD2-main\smallProject
           mvn clean install -DskipTests
 
       - name: Run Selenium Tests
         run: |
+          cd C:\Users\HepaS\Downloads\CICD2-main\CICD2-main\smallProject
           mvn test
